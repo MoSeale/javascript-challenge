@@ -16,56 +16,72 @@ var tbody = d3.select("tbody");
 // );
 
 
-// // // Step 2:  Use d3 to append one table row `tr` for each  UFO data object
 
-// data.forEach(function(UFOFinding) {
-//    console.log(UFOFinding);
-//    var row = tbody.append("tr");
-//  });
-
-// // // Step 3:  Use `Object.entries` to console.log each weather report value
-// data.forEach(function(UFOFinding) {
-//   console.log(UFOFinding);
-//   var row = tbody.append("tr");
-
-//   Object.entries(UFOFinding).forEach(function([key, value]) {
-//     console.log(key, value);
-//   });
-// });
-
-// // Step 4: Use d3 to append 1 cell per weather report value (weekday, date, high, low)
-// data.forEach(function(weatherReport) {
-//   console.log(weatherReport);
-//   var row = tbody.append("tr");
-
-//   Object.entries(weatherReport).forEach(function([key, value]) {
-//     console.log(key, value);
-//     // Append a cell to the row for each value
-//     // in the weather report object
-//     var cell = row.append("td");
-//   });
-// });
-
-// // Step 5: Use d3 to update each cell's text with
-// UFO report values (datetime, city, state, country, shape, durationMinutes, comments)
-// data.forEach(function(UFOFinding) {
-//   console.log(UFOFinding);
-//   var row = tbody.append("tr");
-//   Object.entries(UFOFinding).forEach(function([key, value]) {
-//     console.log(key, value);
-//     // Append a cell to the row for each value
-//     // in the weather report object
-//     var cell = row.append("td");
-//     cell.text(value);
-//   });
-// });
-
-// // BONUS: Refactor to use Arrow Functions!
 data.forEach((UFOFinding) => {
+
+    // //Use d3 to append one table row `tr` for each  UFO data object
     var row = tbody.append("tr");
+
+    // //Use `Object.entries` to console.log each UFO data report value
     Object.entries(UFOFinding).forEach(([key, value]) => {
-      var cell = row.append("td");
-      cell.text(value);
+
+        // Append a cell to the row for each value
+//      // in the  UFO data report object
+        var cell = row.append("td");
+
+        //Use d3 to update each cell's text with
+        // UFO report values (datetime, city, state, country, shape, durationMinutes, comments)
+        cell.text(value);
     });
-  });
+});
+
+
+// // Set up event handler function for the date input
+
+function filterUFOData(){
+    
+    //collect and store user input of Date
+
+    var dateInput = d3.select("#datetime");
+    var dateSelected = dateInput.property("value");
+
+    console.log(dateSelected);
+
+
+    //Filter Data by Date input by user
+
+    var filtered_sightings = tableData.filter(sightData => sightData.datetime === dateSelected);
+
+    // reset the table initially displayed
+
+    tbody.html("");
+
+    //repopulate table with filtered 
+
+
+    filtered_sightings.forEach((report) => {
+
+        // //Use d3 to append one table row `tr` for each  row object
+        var row = tbody.append("tr");
+    
+        // //Use `Object.entries` to console.log each filtered data report value
+        Object.entries(report).forEach(([key, value]) => {
+    
+            // Append a cell to the row for each value
+    //      // in the  UFO data report object
+            var td = row.append("td");
+    
+            //Use d3 to update each cell's text with
+            // UFO report values (datetime, city, state, country, shape, durationMinutes, comments)
+            td.text(value);
+        });
+    });
+
+
+
+};
+
+
+
+////
   
